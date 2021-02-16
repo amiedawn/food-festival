@@ -1,7 +1,9 @@
 const webpack = require("webpack");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
+const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
+const WebpackPwaManifest = require("webpack-pwa-manifest");
 const path = require("path");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const WebpackPwaManifest = require('webpack-pwa-manifest');
 
 const config = {
   entry: {
@@ -17,7 +19,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.jpg$/,
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
             loader: "file-loader",
@@ -43,7 +45,6 @@ const config = {
       jQuery: "jquery",
     }),
     new BundleAnalyzerPlugin({
-      // the report outputs to an HTML file in the dist folder
       analyzerMode: "static",
     }),
     new WebpackPwaManifest({
